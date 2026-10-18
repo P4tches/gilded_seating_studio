@@ -1,0 +1,186 @@
+/* ============================================================
+   PRINT SHEETS — physical, paper-sized layouts for table cards
+   and name cards. All dimensions are set inline in CSS pixels
+   at 96 dpi; the exporter scales the same DOM to 300 dpi.
+   ============================================================ */
+
+.print-sheet {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  color: #24211c;
+  font-family: 'Jost', sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.print-sheet *,
+.print-sheet *::before,
+.print-sheet *::after { box-sizing: border-box; }
+
+.print-item { position: absolute; }
+
+/* ---------- table cards ---------- */
+
+.print-table-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  background: var(--print-card-bg, #fbf7ee);
+  color: var(--print-guest, #3a342c);
+  padding: var(--print-pad, 36px);
+}
+
+.print-label {
+  margin: 0;
+  font-family: var(--print-label-font, 'Parisienne', cursive);
+  font-size: var(--print-label-size, 46pt);
+  font-style: var(--print-label-style, normal);
+  font-weight: var(--print-label-weight, 400);
+  line-height: 1.08;
+  letter-spacing: var(--print-label-spacing, 0em);
+  color: var(--print-label, #241f18);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 0 auto;
+}
+
+.print-card-rule {
+  flex: 0 0 auto;
+  width: 100%;
+  height: 1.5px;
+  background: var(--print-label, #241f18);
+  opacity: .3;
+  margin: var(--print-rule-top, 12px) 0 var(--print-rule-bottom, 14px);
+}
+
+.print-guests {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--print-guest-font, 'Montserrat', sans-serif);
+  font-size: var(--print-guest-size, 11pt);
+  font-weight: var(--print-guest-weight, 500);
+  line-height: var(--print-guest-line-height, 1.55);
+  letter-spacing: var(--print-guest-spacing, .12em);
+  text-transform: var(--print-guest-transform, uppercase);
+  color: var(--print-guest, #3a342c);
+}
+
+.print-guests li {
+  white-space: normal;
+  overflow-wrap: break-word;
+  break-inside: avoid;
+}
+
+.print-guest-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.print-guest-columns .print-guests { min-width: 0; }
+
+.print-table-card.is-overflow .print-guests { opacity: .96; }
+
+/* ---------- name cards ---------- */
+
+.print-name-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--print-card-bg, #fbf7ee);
+  color: var(--print-name-color, #221d18);
+}
+
+.print-name-panel {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--print-name-pad, 18px);
+}
+
+.print-name-panel--top {
+  transform: rotate(180deg);
+  transform-origin: center center;
+}
+
+.print-name-text {
+  max-width: 100%;
+  font-family: var(--print-name-font, 'Parisienne', cursive);
+  font-size: var(--print-name-size, 32pt);
+  font-style: var(--print-name-style, normal);
+  font-weight: 400;
+  line-height: 1.02;
+  color: var(--print-name-color, #221d18);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.print-name-rule {
+  width: var(--print-name-rule-w, 0.55in);
+  height: 1.5px;
+  margin: var(--print-name-rule-margin, 7px 0 6px);
+  background: var(--print-accent, #c9a35c);
+  opacity: .78;
+}
+
+.print-name-table {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--print-table-font, 'Montserrat', sans-serif);
+  font-size: var(--print-table-size, 8pt);
+  font-weight: var(--print-table-weight, 500);
+  letter-spacing: var(--print-table-spacing, .16em);
+  text-transform: uppercase;
+  color: var(--print-table-color, #6f6658);
+  white-space: nowrap;
+}
+
+.print-fold {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 0;
+  border-top: 1px dashed rgba(120, 111, 96, .7);
+  pointer-events: none;
+}
+
+.print-hairline {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid var(--print-border, #d8cfbe);
+  pointer-events: none;
+}
+
+/* ---------- crop marks ---------- */
+
+.print-crop {
+  position: absolute;
+  background: #7d776c;
+  pointer-events: none;
+}
+
+/* Preview-only helpers (never inside an exported sheet) */
+.print-preview-scaler {
+  position: relative;
+  filter: drop-shadow(0 24px 55px rgba(0, 0, 0, .5));
+}
+
+.print-preview-scaler .print-sheet {
+  transform-origin: top left;
+}
