@@ -1,5 +1,7 @@
 # Gilded — Seating Chart & Card Studio
 
+**Live app:** <https://p4tches.github.io/gilded_seating_studio/>
+
 A private, static PWA for designing a wedding/event seating chart and printing the
 things that actually go on the tables:
 
@@ -88,6 +90,9 @@ mockup/preview export; the card PDFs above are the print products.
   clears your charts — download a project backup from the `···` menu for safekeeping.
 
 ## Deploying an update
+
+The live site is served by GitHub Pages from the `main` branch (root). Push to
+`main` and Pages redeploys automatically.
 
 Because there is no build hash, **bump the cache version in `sw.js`** whenever
 you change a cached file:
